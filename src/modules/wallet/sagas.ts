@@ -41,7 +41,11 @@ function* handleConnectWalletRequest() {
     yield call(() => provider.send('eth_requestAccounts', []))
     const signer = provider.getSigner()
     const address: string = yield call(() => signer.getAddress())
-    yield put(connectWalletSuccess(address))
+
+    const token = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, provider)
+    const balance: string = yield call(() => token.balanceOf(address))
+
+    yield put(connectWalletSuccess(address, balance))
   } catch (error: any) {
     yield put(connectWalletFailure(error.message))
   }
