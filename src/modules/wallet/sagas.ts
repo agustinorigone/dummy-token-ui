@@ -1,5 +1,6 @@
 import { ethers } from 'ethers'
-import { call, put, takeEvery } from 'redux-saga/effects'    
+import { call, put, takeEvery } from 'redux-saga/effects'  
+import { push } from 'connected-react-router'  
 
 import {
   connectWalletFailure,
@@ -62,8 +63,11 @@ function* handleTransferRequest(action: TransferAction) {
 
     yield call(() => token.transfer(address, amount))
 
-    //TODO: Not working react-router-redux. I should explore connected-react-router
-    //yield put(push(locations.root()))
+    //const fromAddress: string = yield call(() => signer.getAddress())
+    //const balance: string = yield call(() => token.balanceOf(fromAddress))
+
+    //yield put(connectWalletSuccess(fromAddress, balance))
+    yield put(push(locations.root()))
   
   } catch (error: any) {
     //TODO: handle error

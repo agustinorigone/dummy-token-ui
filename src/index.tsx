@@ -1,13 +1,12 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { ConnectedRouter } from 'connected-react-router'
 
 import { Routes } from './components/Routes'
 import { Navbar,
          Footer
 } from 'decentraland-ui'
-import { store } from './modules/store'
+import { store, history } from './modules/store'
 
 import 'decentraland-ui/lib/styles.css'
 
@@ -17,9 +16,9 @@ require('dotenv').config()
 ReactDOM.render(
   <Provider store={store}>
     <Navbar />
-    <Router>
+    <ConnectedRouter history={history}>
       <Routes />
-    </Router>
+    </ConnectedRouter>
     <Footer />
   </Provider>,
   document.getElementById('root')
