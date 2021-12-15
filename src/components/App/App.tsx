@@ -3,12 +3,12 @@ import {
   Button,
   Card,
   Center,
-  Footer,
   Header,
-  Navbar,
   Page,
 } from 'decentraland-ui'
 import { Props } from './App.types'
+import { Link } from 'react-router-dom'
+import { locations } from '../../modules/routing/locations'
 import './App.css'
 
 const App: React.FC<Props> = ({
@@ -20,34 +20,30 @@ const App: React.FC<Props> = ({
   error,
 }) => {
   return (
-    <>
-      <Navbar />
-      <Page className="App">
-        <Center>
-          {!isConnected ? (
-            <>
-              <Button primary onClick={onConnect} loading={isConnecting}>
-                Connect
-              </Button>
-              {error ? <p className="error">{error}</p> : null}
-            </>
-          ) : (
-            <Card>
-              <Header>Wallet</Header>
-              <p>
-                <strong>Address:</strong>&nbsp;
-                {address.slice(0, 6) + '...' + address.slice(-4)}
-              </p>
-              <p>
-                <strong>Balance:</strong>&nbsp;
-                {balance + ' DUMMY '}<span><a>TRANSFER</a></span>
-              </p>
-            </Card>
-          )}
-        </Center>
-      </Page>
-      <Footer />
-    </>
+    <Page className="App">
+      <Center>
+        {!isConnected ? (
+          <>
+            <Button primary onClick={onConnect} loading={isConnecting}>
+              Connect
+            </Button>
+            {error ? <p className="error">{error}</p> : null}
+          </>
+        ) : (
+          <Card>
+            <Header>Wallet</Header>
+            <p>
+              <strong>Address:</strong>&nbsp;
+              {address.slice(0, 6) + '...' + address.slice(-4)}
+            </p>
+            <p>
+              <strong>Balance:</strong>&nbsp;
+              {balance + ' DUMMY '}<span><Link to={locations.transfer()}>TRANSFER</Link></span>
+            </p>
+          </Card>
+        )}
+      </Center>
+    </Page>
   )
 }
 
