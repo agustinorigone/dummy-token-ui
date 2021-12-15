@@ -5,6 +5,7 @@ import {
   CONNECT_WALLET_FAILURE,
   CONNECT_WALLET_REQUEST,
   CONNECT_WALLET_SUCCESS,
+  TRANSFER_REQUEST,
 } from './actions'
 import { WalletState } from './types'
 
@@ -45,6 +46,13 @@ export function walletReducer(
         ...state,
         isConnecting: false,
         error,
+      }
+    }
+
+    case TRANSFER_REQUEST: {
+      return {
+        ...state,
+        error: null,
       }
     }
 

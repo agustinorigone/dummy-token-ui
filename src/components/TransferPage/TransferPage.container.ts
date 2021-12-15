@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
-import { connectWalletRequest } from '../../modules/wallet/actions'
+import { connectWalletRequest, transferRequest } from '../../modules/wallet/actions'
 import {
-  getAddress,
   getBalance,
   getError,
   isConnected,
@@ -12,7 +11,6 @@ import { MapDispatch, MapDispatchProps, MapStateProps } from './TransferPage.typ
 import TransferPage from './TransferPage'
 
 const mapState = (state: RootState): MapStateProps => ({
-  address: getAddress(state),
   balance: getBalance(state),
   isConnected: isConnected(state),
   isConnecting: isConnecting(state),
@@ -21,6 +19,7 @@ const mapState = (state: RootState): MapStateProps => ({
 
 const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({
   onConnect: () => dispatch(connectWalletRequest()),
+  onTransfer: (amount, address) => dispatch(transferRequest(amount, address)),
 })
 
 export default connect(mapState, mapDispatch)(TransferPage)
