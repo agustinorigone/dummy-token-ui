@@ -43,8 +43,9 @@ function* handleConnectWalletRequest() {
 
     const token = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, provider)
     const balance: string = yield call(() => token.balanceOf(address))
+    const symbol: string = yield call(() => token.symbol())
 
-    yield put(connectWalletSuccess(address, balance.toString()))
+    yield put(connectWalletSuccess(address, balance.toString(), symbol))
   } catch (error: any) {
     yield put(connectWalletFailure(error.message))
   }
@@ -63,10 +64,6 @@ function* handleTransferRequest(action: TransferAction) {
 
     yield call(() => token.transfer(address, amount))
 
-    //const fromAddress: string = yield call(() => signer.getAddress())
-    //const balance: string = yield call(() => token.balanceOf(fromAddress))
-
-    //yield put(connectWalletSuccess(fromAddress, balance))
     yield put(push(locations.root()))
   
   } catch (error: any) {

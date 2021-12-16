@@ -11,12 +11,13 @@ export function connectWalletRequest() {
   }
 }
 
-export function connectWalletSuccess(address: string, balance: string) {
+export function connectWalletSuccess(address: string, balance: string, symbol: string) {
   return {
     type: CONNECT_WALLET_SUCCESS,
     payload: {
       address,
       balance,
+      symbol,
     },
   }
 }

@@ -14,6 +14,7 @@ import './App.css'
 const App: React.FC<Props> = ({
   address,
   balance,
+  symbol,
   isConnected,
   onConnect,
   isConnecting,
@@ -38,7 +39,7 @@ const App: React.FC<Props> = ({
             </p>
             <p>
               <strong>Balance:</strong>&nbsp;
-              {balance + ' DUMMY '}<span><Link to={locations.transfer()}>TRANSFER</Link></span>
+              {balance + ' ' + symbol + ' '}<span><Link to={locations.transfer()}>TRANSFER</Link></span>
             </p>
           </Card>
         )}

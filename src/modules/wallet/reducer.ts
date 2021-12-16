@@ -12,6 +12,7 @@ import { WalletState } from './types'
 const INITIAL_STATE: WalletState = {
   address: null,
   balance: null,
+  symbol: null,
   isConnecting: false,
   error: null,
 }
@@ -29,13 +30,14 @@ export function walletReducer(
       }
     }
     case CONNECT_WALLET_SUCCESS: {
-      const { address, balance } =
+      const { address, balance, symbol } =
         action.payload as ConnectWalletSuccessAction['payload']
       return {
         ...state,
         isConnecting: false,
         address,
         balance,
+        symbol,
         error: null,
       }
     }
