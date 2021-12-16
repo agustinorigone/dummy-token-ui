@@ -1,0 +1,5 @@
+.TransferModal .error {
+  margin-bottom: 20px;
+  color: var(--primary);
+  text-align: center;
+}

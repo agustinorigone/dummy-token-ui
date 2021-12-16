@@ -5,8 +5,9 @@ import { push } from 'connected-react-router'
 import {
   connectWalletFailure,
   connectWalletSuccess,
-  TransferAction,
   CONNECT_WALLET_REQUEST,
+  transferFailure,
+  TransferAction,
   TRANSFER_REQUEST,
 } from './actions'
 import { WindowWithEthereum } from './types'
@@ -67,7 +68,6 @@ function* handleTransferRequest(action: TransferAction) {
     yield put(push(locations.root()))
   
   } catch (error: any) {
-    //TODO: handle error
-    //yield put(connectWalletFailure(error.message))
+    yield put(transferFailure(error.message))
   }
 }

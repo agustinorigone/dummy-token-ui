@@ -5,6 +5,8 @@ import {
   CONNECT_WALLET_FAILURE,
   CONNECT_WALLET_REQUEST,
   CONNECT_WALLET_SUCCESS,
+  TransferFailureAction,
+  TRANSFER_FAILURE,
   TRANSFER_REQUEST,
 } from './actions'
 import { WalletState } from './types'
@@ -55,6 +57,14 @@ export function walletReducer(
       return {
         ...state,
         error: null,
+      }
+    }
+
+    case TRANSFER_FAILURE: {
+      const { error } = action.payload as TransferFailureAction['payload']
+      return {
+        ...state,
+        error,
       }
     }
 

@@ -8,6 +8,7 @@ import {
   Page,
 } from 'decentraland-ui'
 import { Props } from './TransferPage.types'
+import './TransferPage.css'
 
 const TransferPage: React.FC<Props> = ({
   balance,
@@ -35,7 +36,7 @@ const TransferPage: React.FC<Props> = ({
               {error ? <p className="error">{error}</p> : null}
             </>
           ) : (
-            <Modal size="small" open={true}>
+            <Modal className="TransferModal" size="small" open={true}>
               <Modal.Header>Transfer</Modal.Header>
               <Modal.Content>
                 <Field
@@ -86,6 +87,7 @@ const TransferPage: React.FC<Props> = ({
                   Transfer
                 </Button>
               </Modal.Actions>
+              {error ? <p className="error">{error}</p> : null}
             </Modal>
           )}
         </Center>
