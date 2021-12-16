@@ -44,14 +44,18 @@ const TransferPage: React.FC<Props> = ({
                   error={isInvalidAmount && amount !== ''}
                   message={
                     isInvalidAmount && amount !== ''
-                      ? "Invalid Amount"
+                      ? "Invalid Amount: decimals not supported | not enough balance"
                       : undefined
                   }
                   value={amount}
                   placeholder="10"
                   onChange={(_event, props) => {
                     setAmount(props.value)
-                    setIsInvalidAmount(parseInt(props.value) > parseInt(balance.toString()))
+                    const isValid =
+                      !props.value ||
+                      (/^[0-9]*$/g.test(props.value) && 
+                      parseInt(props.value) < parseInt(balance))
+                    setIsInvalidAmount(!isValid)
                   }}
                 />
                 <Field
