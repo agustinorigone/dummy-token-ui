@@ -3,12 +3,11 @@ import { ethers } from "ethers";
 export type WalletState = {
   address: string | null;
   amount: string | null;
-  toAmount: string | null;
-  toAddress: string | null;
   balance: string | null;
   symbol: string | null;
   isBurning: boolean;
   isConnecting: boolean;
+  isMinting: boolean;
   isTransfering: boolean;
   error: string | null;
 };

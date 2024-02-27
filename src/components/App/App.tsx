@@ -4,6 +4,7 @@ import { Props } from "./App.types";
 
 import "./App.css";
 import { Header } from "../Header";
+import { Footer } from "../Footer";
 
 const App: React.FC<Props> = ({
   address,
@@ -40,6 +41,7 @@ const App: React.FC<Props> = ({
           )}
         </Center>
       </Page>
+      <Footer />
     </>
   );
 };

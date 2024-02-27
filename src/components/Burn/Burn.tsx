@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useState } from "react";
-import { Button, Card, Center, Form, Input, Page } from "decentraland-ui";
 import { Header } from "../Header";
 import { Props } from "./Burn.types";
 import "./Burn.css";
-import { useSelector } from "react-redux";
+import { Card, Form, Input, Button, Center, Page } from "decentraland-ui";
+import { Footer } from "../Footer";
 
-const Transfer: React.FC<Props> = ({
+const Burn: React.FC<Props> = ({
   isConnected,
   isConnecting,
   onConnect,
@@ -49,8 +49,9 @@ const Transfer: React.FC<Props> = ({
           )}
         </Center>
       </Page>
+      <Footer />
     </>
   );
 };
 
-export default Transfer;
+export default Burn;

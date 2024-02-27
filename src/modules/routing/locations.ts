@@ -1,5 +1,6 @@
 export const locations = {
   root: () => "/",
-  transfer: () => "/transfer",
   burn: () => "/burn",
+  mint: () => "/mint",
+  transfer: () => "/transfer",
 };

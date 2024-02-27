@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import {
-  burnRequest,
+  mintRequest,
   connectWalletRequest,
 } from "../../modules/wallet/actions";
 import {
@@ -9,8 +9,8 @@ import {
   isConnecting,
 } from "../../modules/wallet/selectors";
 import { RootState } from "../../modules/types";
-import { MapDispatch, MapDispatchProps, MapStateProps } from "./Burn.types";
-import Burn from "./Burn";
+import { MapDispatch, MapDispatchProps, MapStateProps } from "./Mint.types";
+import Mint from "./Mint";
 
 const mapState = (state: RootState): MapStateProps => ({
   isConnected: isConnected(state),
@@ -20,7 +20,7 @@ const mapState = (state: RootState): MapStateProps => ({
 
 const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({
   onConnect: () => dispatch(connectWalletRequest()),
-  onBurn: (amount: string) => dispatch(burnRequest(amount)),
+  onMint: (amount: string) => dispatch(mintRequest(amount)),
 });
 
-export default connect(mapState, mapDispatch)(Burn);
+export default connect(mapState, mapDispatch)(Mint);

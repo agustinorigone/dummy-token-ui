@@ -10,6 +10,11 @@ import {
   CONNECT_WALLET_FAILURE,
   CONNECT_WALLET_REQUEST,
   CONNECT_WALLET_SUCCESS,
+  MintFailureAction,
+  MintSuccessAction,
+  MINT_FAILURE,
+  MINT_REQUEST,
+  MINT_SUCCESS,
   TransferFailureAction,
   TransferSuccessAction,
   TRANSFER_FAILURE,
@@ -22,11 +27,10 @@ const INITIAL_STATE: WalletState = {
   address: null,
   balance: null,
   amount: null,
-  toAddress: null,
-  toAmount: null,
   symbol: null,
   isBurning: false,
   isConnecting: false,
+  isMinting: false,
   isTransfering: false,
   error: null,
 };
@@ -88,6 +92,33 @@ export function walletReducer(
       return {
         ...state,
         isBurning: false,
+        error,
+      };
+    }
+
+    case MINT_REQUEST: {
+      return {
+        ...state,
+        isMinting: true,
+        error: null,
+      };
+    }
+
+    case MINT_SUCCESS: {
+      const { balance } = action.payload as MintSuccessAction["payload"];
+      return {
+        ...state,
+        balance,
+        isMinting: false,
+        error: null,
+      };
+    }
+
+    case MINT_FAILURE: {
+      const { error } = action.payload as MintFailureAction["payload"];
+      return {
+        ...state,
+        isMinting: false,
         error,
       };
     }

@@ -1,6 +1,5 @@
 import { ethers } from "ethers";
 import { call, put, select, takeEvery } from "redux-saga/effects";
-import { push } from "connected-react-router";
 
 import {
   burnFailure,
@@ -10,13 +9,16 @@ import {
   connectWalletFailure,
   connectWalletSuccess,
   CONNECT_WALLET_REQUEST,
+  mintFailure,
+  mintSuccess,
+  MintRequestAction,
+  MINT_REQUEST,
   transferFailure,
   transferSuccess,
   TransferRequestAction,
   TRANSFER_REQUEST,
 } from "./actions";
 import { WindowWithEthereum } from "./types";
-import { locations } from "../routing/locations";
 import { getAddress } from "./selectors";
 
 // The regular `window` object with `ethereum` injected by MetaMask
@@ -32,12 +34,14 @@ export const TOKEN_ABI = [
   "function symbol() view returns (string)",
   "function balanceOf(address) view returns (uint)",
   "function transfer(address to, uint amount)",
+  "function mint(uint256 amount) external",
 ];
 
 export function* walletSaga() {
   yield takeEvery(CONNECT_WALLET_REQUEST, handleConnectWalletRequest);
   yield takeEvery(TRANSFER_REQUEST, handleTransferRequest);
   yield takeEvery(BURN_REQUEST, handleBurnRequest);
+  yield takeEvery(MINT_REQUEST, handleMintRequest);
 }
 
 function* handleConnectWalletRequest() {
@@ -127,5 +131,37 @@ function* handleBurnRequest(action: BurnRequestAction) {
     yield put(burnSuccess(balanceFormatted));
   } catch (error: any) {
     yield put(burnFailure(error.message));
+  }
+}
+
+function* handleMintRequest(action: MintRequestAction) {
+  const { toAmount } = action.payload;
+  try {
+    const address: string = yield select(getAddress);
+
+    const provider = new ethers.providers.Web3Provider(
+      windowWithEthereum.ethereum
+    );
+    yield call(() => provider.send("eth_requestAccounts", []));
+    const signer = provider.getSigner();
+
+    const token = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, signer);
+
+    // Perform the token transfer
+    const transaction: ethers.providers.TransactionResponse = yield call(() =>
+      token.mint(ethers.utils.parseEther(toAmount))
+    );
+
+    // Wait for the transaction to be mined
+    yield call(() => transaction.wait());
+
+    //Update balance
+    const balance: string = yield call(() => token.balanceOf(address));
+    const balanceFormatted: string = Number(
+      ethers.utils.formatEther(balance.toString())
+    ).toFixed(2);
+    yield put(mintSuccess(balanceFormatted));
+  } catch (error: any) {
+    yield put(mintFailure(error.message));
   }
 }

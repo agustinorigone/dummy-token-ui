@@ -1,7 +1,7 @@
 import { AnyAction, Dispatch } from "redux";
 import {
   ConnectWalletRequestAction,
-  BurnRequestAction,
+  MintRequestAction,
 } from "../../modules/wallet/actions";
 
 export type Props = {
@@ -9,14 +9,14 @@ export type Props = {
   isConnected: boolean;
   error: string | null;
   onConnect: () => void;
-  onBurn: (amount: string) => void;
+  onMint: (amount: string) => void;
 };
 
 export type MapStateProps = Pick<
   Props,
   "isConnecting" | "isConnected" | "error"
 >;
-export type MapDispatchProps = Pick<Props, "onConnect" | "onBurn">;
+export type MapDispatchProps = Pick<Props, "onConnect" | "onMint">;
 export type MapDispatch = Dispatch<
-  ConnectWalletRequestAction | BurnRequestAction | AnyAction
+  ConnectWalletRequestAction | MintRequestAction | AnyAction
 >;

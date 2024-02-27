@@ -4,6 +4,9 @@ export const CONNECT_WALLET_FAILURE = "[Failure] Connect Wallet";
 export const BURN_REQUEST = "[Request] Burn";
 export const BURN_SUCCESS = "[Success] Burn";
 export const BURN_FAILURE = "[Failure] Burn";
+export const MINT_REQUEST = "[Request] Mint";
+export const MINT_SUCCESS = "[Success] Mint";
+export const MINT_FAILURE = "[Failure] Mint";
 export const TRANSFER_REQUEST = "[Request] Transfer";
 export const TRANSFER_SUCCESS = "[Success] Transfer";
 export const TRANSFER_FAILURE = "[Failure] Transfer";
@@ -66,6 +69,33 @@ export function burnFailure(error: string) {
   };
 }
 
+export function mintRequest(toAmount: string) {
+  return {
+    type: MINT_REQUEST,
+    payload: {
+      toAmount,
+    },
+  };
+}
+
+export function mintSuccess(balance: string) {
+  return {
+    type: MINT_SUCCESS,
+    payload: {
+      balance,
+    },
+  };
+}
+
+export function mintFailure(error: string) {
+  return {
+    type: MINT_FAILURE,
+    payload: {
+      error,
+    },
+  };
+}
+
 export function transferRequest(toAmount: string, toAddress: string) {
   return {
     type: TRANSFER_REQUEST,
@@ -106,6 +136,9 @@ export type ConnectWalletFailureAction = ReturnType<
 export type BurnRequestAction = ReturnType<typeof burnRequest>;
 export type BurnSuccessAction = ReturnType<typeof burnSuccess>;
 export type BurnFailureAction = ReturnType<typeof burnFailure>;
+export type MintRequestAction = ReturnType<typeof mintRequest>;
+export type MintSuccessAction = ReturnType<typeof mintSuccess>;
+export type MintFailureAction = ReturnType<typeof mintFailure>;
 export type TransferRequestAction = ReturnType<typeof transferRequest>;
 export type TransferSuccessAction = ReturnType<typeof transferSuccess>;
 export type TransferFailureAction = ReturnType<typeof transferFailure>;
