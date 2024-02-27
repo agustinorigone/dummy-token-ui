@@ -1,18 +1,22 @@
 import React from "react";
-import { Button, Center, Page } from "decentraland-ui";
+import { Button, Card, Center, Page } from "decentraland-ui";
 import { Props } from "./App.types";
 
 import "./App.css";
+import { Header } from "../Header";
 
 const App: React.FC<Props> = ({
+  address,
+  balance,
+  symbol,
   isConnected,
   onConnect,
   isConnecting,
   error,
-  children,
 }) => {
   return (
     <>
+      <Header />
       <Page className="App">
         <Center>
           {!isConnected ? (
@@ -23,7 +27,16 @@ const App: React.FC<Props> = ({
               {error ? <p className="error">{error}</p> : null}
             </>
           ) : (
-            children
+            <Card>
+              <p>
+                <strong>Address:</strong>&nbsp;
+                {address.slice(0, 6) + "..." + address.slice(-4)}
+              </p>
+              <p>
+                <strong>Balance:</strong>&nbsp;
+                {balance + " " + symbol + " "}
+              </p>
+            </Card>
           )}
         </Center>
       </Page>

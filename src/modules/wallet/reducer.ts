@@ -23,6 +23,7 @@ const INITIAL_STATE: WalletState = {
   balance: null,
   amount: null,
   toAddress: null,
+  toAmount: null,
   symbol: null,
   isBurning: false,
   isConnecting: false,

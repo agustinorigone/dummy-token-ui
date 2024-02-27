@@ -39,11 +39,11 @@ export function connectWalletFailure(error: string) {
   };
 }
 
-export function burnRequest(amount: string) {
+export function burnRequest(toAmount: string) {
   return {
     type: BURN_REQUEST,
     payload: {
-      amount,
+      toAmount,
     },
   };
 }
@@ -66,12 +66,12 @@ export function burnFailure(error: string) {
   };
 }
 
-export function transferRequest(amount: string, address: string) {
+export function transferRequest(toAmount: string, toAddress: string) {
   return {
     type: TRANSFER_REQUEST,
     payload: {
-      amount,
-      address,
+      toAmount,
+      toAddress,
     },
   };
 }

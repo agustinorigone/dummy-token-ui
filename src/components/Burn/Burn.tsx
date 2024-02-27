@@ -1,19 +1,18 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Button, Card, Center, Form, Input, Page } from "decentraland-ui";
-import "./Transfer.css";
 import { Header } from "../Header";
-
-import { Props } from "./Transfer.types";
+import { Props } from "./Burn.types";
+import "./Burn.css";
+import { useSelector } from "react-redux";
 
 const Transfer: React.FC<Props> = ({
   isConnected,
   isConnecting,
   onConnect,
-  onTransfer,
+  onBurn,
   error,
 }) => {
   const [amount, setAmount] = useState("0");
-  const [address, setAddress] = useState("");
 
   const handleSetAmount = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
@@ -21,16 +20,10 @@ const Transfer: React.FC<Props> = ({
     setAmount(value);
   };
 
-  const handleSetAddress = (event: ChangeEvent<HTMLInputElement>): void => {
-    const { value } = event.target;
-    //TODO: validate address
-    setAddress(value);
-  };
-
   return (
     <>
       <Header />
-      <Page className="Transfer">
+      <Page className="Burn">
         <Center>
           {!isConnected ? (
             <>
@@ -48,15 +41,8 @@ const Transfer: React.FC<Props> = ({
                 value={amount}
                 onChange={handleSetAmount}
               />
-              <Input
-                type="text"
-                name="address"
-                placeholder="0x..."
-                value={address}
-                onChange={handleSetAddress}
-              />
-              <Form onSubmit={() => onTransfer(amount, address)}>
-                <Button type="submit">Transfer</Button>
+              <Form onSubmit={() => onBurn(amount)}>
+                <Button type="submit">Burn</Button>
               </Form>
               {error ? <p className="error">{error}</p> : null}
             </Card>

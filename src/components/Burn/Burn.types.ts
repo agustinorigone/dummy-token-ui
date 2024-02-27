@@ -9,14 +9,14 @@ export type Props = {
   isConnected: boolean;
   error: string | null;
   onConnect: () => void;
-  onTransfer: (amount: string, address: string) => void;
+  onBurn: (amount: string) => void;
 };
 
 export type MapStateProps = Pick<
   Props,
   "isConnecting" | "isConnected" | "error"
 >;
-export type MapDispatchProps = Pick<Props, "onConnect" | "onTransfer">;
+export type MapDispatchProps = Pick<Props, "onConnect" | "onBurn">;
 export type MapDispatch = Dispatch<
   ConnectWalletRequestAction | TransferRequestAction | AnyAction
 >;
