@@ -1,11 +1,17 @@
-import { ethers } from 'ethers'
+import { ethers } from "ethers";
 
 export type WalletState = {
-  address: string | null
-  isConnecting: boolean
-  error: string | null
-}
+  address: string | null;
+  amount: string | null;
+  toAddress: string | null;
+  balance: string | null;
+  symbol: string | null;
+  isBurning: boolean;
+  isConnecting: boolean;
+  isTransfering: boolean;
+  error: string | null;
+};
 
 export type WindowWithEthereum = Window & {
-  ethereum: ethers.providers.ExternalProvider
-}
+  ethereum: ethers.providers.ExternalProvider;
+};

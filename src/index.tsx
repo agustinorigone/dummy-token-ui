@@ -1,17 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 
-import { App } from './components/App'
-import { store } from './modules/store'
+import { store } from "./modules/store";
 
-import 'decentraland-ui/lib/styles.css'
+import "decentraland-ui/lib/styles.css";
+import { Routes } from "./components/Routes";
 
-require('dotenv').config()
+require("dotenv").config();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Routes />
   </Provider>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);

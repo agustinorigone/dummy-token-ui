@@ -1,18 +1,34 @@
-import { AnyAction } from 'redux'
+import { AnyAction } from "redux";
 import {
+  BurnFailureAction,
+  BurnSuccessAction,
+  BURN_FAILURE,
+  BURN_REQUEST,
+  BURN_SUCCESS,
   ConnectWalletFailureAction,
   ConnectWalletSuccessAction,
   CONNECT_WALLET_FAILURE,
   CONNECT_WALLET_REQUEST,
   CONNECT_WALLET_SUCCESS,
-} from './actions'
-import { WalletState } from './types'
+  TransferFailureAction,
+  TransferSuccessAction,
+  TRANSFER_FAILURE,
+  TRANSFER_REQUEST,
+  TRANSFER_SUCCESS,
+} from "./actions";
+import { WalletState } from "./types";
 
 const INITIAL_STATE: WalletState = {
   address: null,
+  balance: null,
+  amount: null,
+  toAddress: null,
+  symbol: null,
+  isBurning: false,
   isConnecting: false,
+  isTransfering: false,
   error: null,
-}
+};
 
 export function walletReducer(
   state: WalletState = INITIAL_STATE,
@@ -24,29 +40,84 @@ export function walletReducer(
         ...state,
         isConnecting: true,
         error: null,
-      }
+      };
     }
     case CONNECT_WALLET_SUCCESS: {
-      const { address } =
-        action.payload as ConnectWalletSuccessAction['payload']
+      const { address, balance, symbol } =
+        action.payload as ConnectWalletSuccessAction["payload"];
       return {
         ...state,
         isConnecting: false,
         address,
+        balance,
+        symbol,
         error: null,
-      }
+      };
     }
 
     case CONNECT_WALLET_FAILURE: {
-      const { error } = action.payload as ConnectWalletFailureAction['payload']
+      const { error } = action.payload as ConnectWalletFailureAction["payload"];
       return {
         ...state,
         isConnecting: false,
         error,
-      }
+      };
+    }
+
+    case BURN_REQUEST: {
+      return {
+        ...state,
+        isBurning: true,
+        error: null,
+      };
+    }
+
+    case BURN_SUCCESS: {
+      const { balance } = action.payload as BurnSuccessAction["payload"];
+      return {
+        ...state,
+        balance,
+        isBurning: false,
+        error: null,
+      };
+    }
+
+    case BURN_FAILURE: {
+      const { error } = action.payload as BurnFailureAction["payload"];
+      return {
+        ...state,
+        isBurning: false,
+        error,
+      };
+    }
+
+    case TRANSFER_REQUEST: {
+      return {
+        ...state,
+        isTransfering: true,
+        error: null,
+      };
+    }
+
+    case TRANSFER_SUCCESS: {
+      const { balance } = action.payload as TransferSuccessAction["payload"];
+      return {
+        ...state,
+        balance,
+        isTransfering: false,
+      };
+    }
+
+    case TRANSFER_FAILURE: {
+      const { error } = action.payload as TransferFailureAction["payload"];
+      return {
+        ...state,
+        isTransfering: false,
+        error,
+      };
     }
 
     default:
-      return state
+      return state;
   }
 }
